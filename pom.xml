@@ -9,7 +9,6 @@
 
 	<name>api-hedios-notifications-sapi</name>
 
-	<description/>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -31,6 +30,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.2.0</version>
 			</plugin>
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
@@ -109,6 +109,7 @@
 			<version>1.1.25</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
+		
 	</dependencies>
 
 	<repositories>
