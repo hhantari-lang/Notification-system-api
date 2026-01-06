@@ -10,7 +10,7 @@
     <server>
       <id>Repository</id> 
       <username>~~~Client~~~</username>
-      <password>013c0ce68b3f45efabae7c3ae31a2db0~?~267C2d05d63B4B69a677f176366CDB26</password> 
+      <password>${env.ANYPOINT_ID}~?~${env.ANYPOINT_SECRET}</password> 
     </server>
   </servers>
 </settings>
