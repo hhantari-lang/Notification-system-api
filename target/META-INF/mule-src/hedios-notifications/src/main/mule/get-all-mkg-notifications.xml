@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="get-all-mkg-notifications" doc:id="bb1bc682-e5af-427f-8ff7-3f1d872fc576" >
+		<http:request method="POST" doc:name="Get Token from Marketing Cloud" doc:id="649a32d4-3e7b-4058-af1f-f67fb11d0fd2" url="${secure::token.url}" >
+			<http:body ><![CDATA[#[output application/x-www-form-urlencoded
+---
+{
+	"client_secret" : Mule::p('secure::token.client_secret'),
+	"grant_type" : "client_credentials",
+	"client_id" : Mule::p('secure::token.client_id')
+}]]]></http:body>
+		</http:request>
+		<set-variable value="#[payload.access_token]" doc:name="Store Token" doc:id="7128e536-1748-44ef-b539-a99b3ba4ee15" variableName="token"/>
+		<scatter-gather doc:name="Scatter-Gather" doc:id="31486746-43a0-4f4d-98c5-81d0fca1965b" >
+			<route >
+				<ee:transform doc:name="Build Request For DE1" doc:id="1b5c70c0-08f7-4741-8594-22a38e751244">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+
+var subdomain = Mule::p('secure::soap.subdomain')
+var AccessToken = vars.token
+---
+"s:Envelope" @(
+  "xmlns:s": "http://www.w3.org/2003/05/soap-envelope",
+  "xmlns:a": "http://schemas.xmlsoap.org/ws/2004/08/addressing",
+  "xmlns:u": "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+): {
+  "s:Header": {
+    "a:Action" @("s:mustUnderstand": "1"): "Retrieve",
+    "a:To" @("s:mustUnderstand": "1"): "https://" ++ subdomain ++ "/Service.asmx",
+    fueloauth @("xmlns": "http://exacttarget.com"): AccessToken
+  },
+  "s:Body" @(
+    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+    "xmlns:xsd": "http://www.w3.org/2001/XMLSchema"
+  ): {
+    RetrieveRequestMsg @("xmlns": "http://exacttarget.com/wsdl/partnerAPI"): {
+      RetrieveRequest: {
+        ObjectType: "DataExtensionObject[Alertes_Notifications]",
+        Properties: [
+          "ContactId",
+          "Message1_Mobile",
+          "Message2_Mobile",
+          "Message3_Mobile",
+          "Title_Mobile",
+          "TitleCTA_Mobile",
+          "UrlCTA_Mobile",
+          "LimitDate_Mobile",
+          "PublicationDate_Mobile",
+          "Message1_Web",
+          "Message2_Web",
+          "Message3_Web",
+          "UrlCTA_Web",
+          "TitleCTA_Web",
+          "LimitDate_Web",
+          "Title_Web",
+          "PublishedDate_Web",
+          "Type",
+          "order"
+        ],
+        Filter @("xsi:type": "SimpleFilterPart"): {
+          Property: "ContactId",
+          SimpleOperator: "equals",
+          Value: vars.filterVal
+        }
+      }
+    }
+  }
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+				<http:request method="POST" doc:name="Get Notification DE1" doc:id="2fb08fbb-69b9-4920-abd1-94d6dfc4fb4d" url="#[&quot;https://&quot; ++ Mule::p('secure::soap.subdomain') ++ &quot;/Service.asmx&quot;]" sendBodyMode="ALWAYS">
+			<http:body><![CDATA[#[%dw 2.0
+output text/plain
+---
+write(payload, "application/xml")]]]></http:body>
+			<http:headers><![CDATA[#[output application/java
+---
+{
+	"SOAPAction" : "Retrieve",
+	"Accept" : "text/xml",
+	"Content-Type" : "text/xml; charset=UTF-8"
+}]]]></http:headers>
+		</http:request>
+				<ee:transform doc:name="XML to JSON" doc:id="6d675477-93fe-46f8-af9d-4264edfb29aa">
+			<ee:message>
+			</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="global_Notif" ><![CDATA[%dw 2.0
+output application/json
+
+var results = payload.Envelope.Body.RetrieveResponseMsg.*Results.Properties map (item) ->
+    (item pluck ((value, key) -> value))
+        reduce (param, acc = {}) ->
+            acc ++ { (param.Name): param.Value }
+---
+results map {
+    ContactId: $.ContactId,
+    appTitle: $.Title_Mobile,
+    typeNotification: $.Type default "",
+    appMsg1: $.Message1_Mobile,
+    appMsg2: $.Message2_Mobile,
+    appMsg3: $.Message3_Mobile,
+    appFormattedMsg: "",
+    appLibelleCTA: $.TitleCTA_Mobile,
+    appUrlCTA: $.UrlCTA_Mobile,
+    appDateLimite: $.LimitDate_Mobile,
+    appDatePublicationParcours: $.PublicationDate_Mobile,
+    webTitle: $.Title_Web,
+    webMsg1: $.Message1_Web,
+    webMsg2: $.Message2_Web,
+    webMsg3: $.Message3_Web,
+    webFormattedMsg: "",
+    webLibelleCTA: $.TitleCTA_Web,
+    webUrlCTA: $.UrlCTA_Web,
+    webDateLimite: $.LimitDate_Web,
+    webDatePublicationParcours: $.PublishedDate_Web,
+    order: $.order 
+}]]></ee:set-variable>
+					</ee:variables>
+		</ee:transform>
+			</route>
+			<route >
+				<ee:transform doc:name="Build Request For DE_One_Time_Day" doc:id="eb507d35-ea81-489f-9152-938fcce3f530" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+
+var subdomain = Mule::p('secure::soap.subdomain')
+var AccessToken = vars.token
+---
+"s:Envelope" @(
+  "xmlns:s": "http://www.w3.org/2003/05/soap-envelope",
+  "xmlns:a": "http://schemas.xmlsoap.org/ws/2004/08/addressing",
+  "xmlns:u": "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+): {
+  "s:Header": {
+    "a:Action" @("s:mustUnderstand": "1"): "Retrieve",
+    "a:To" @("s:mustUnderstand": "1"): "https://" ++ subdomain ++ "/Service.asmx",
+    fueloauth @("xmlns": "http://exacttarget.com"): AccessToken
+  },
+  "s:Body" @(
+    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+    "xmlns:xsd": "http://www.w3.org/2001/XMLSchema"
+  ): {
+    RetrieveRequestMsg @("xmlns": "http://exacttarget.com/wsdl/partnerAPI"): {
+      RetrieveRequest: {
+        ObjectType: "DataExtensionObject[Alertes_Notifications_One_Time_Day]",
+        Properties: [
+          "ContactId",
+          "Message1_Mobile",
+          "Message2_Mobile",
+          "Message3_Mobile",
+          "TitleCTA_Mobile",
+          "UrlCTA_Mobile",
+          "LimitDate_Mobile",
+          "PublicationDate_Mobile",
+          "Title_Mobile",
+          "Message1_Web",
+          "Message2_Web",
+          "Message3_Web",
+          "UrlCTA_Web",
+          "TitleCTA_Web",
+          "LimitDate_Web",
+          "PublishedDate_Web",
+          "Title_Web",
+          "Type",
+          "order"
+        ],
+        Filter @("xsi:type": "SimpleFilterPart"): {
+          Property: "ContactId",
+          SimpleOperator: "equals",
+          Value: vars.filterVal
+        }
+      }
+    }
+  }
+}
+]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<http:request doc:name="Get Notification From DE_One_Time_Day" doc:id="e8bb9cab-5c3b-47f0-ac45-9a82a07e5b91" method="POST" url="#[&quot;https://&quot; ++ Mule::p('secure::soap.subdomain') ++ &quot;/Service.asmx&quot;]" sendBodyMode="ALWAYS" >
+					<http:body ><![CDATA[#[%dw 2.0
+output text/plain
+---
+write(payload, "application/xml")]]]></http:body>
+					<http:headers ><![CDATA[#[output application/java
+---
+{
+	"SOAPAction" : "Retrieve",
+	"Accept" : "text/xml",
+	"Content-Type" : "text/xml; charset=UTF-8"
+}]]]></http:headers>
+				</http:request>
+				<ee:transform doc:name="XML to JSON" doc:id="27192e26-f1c8-44d3-a0b2-cc3e527d5896" >
+					<ee:message >
+					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="One_Time" ><![CDATA[%dw 2.0
+output application/json
+
+var results = payload.Envelope.Body.RetrieveResponseMsg.*Results.Properties map (item) ->
+    (item pluck ((value, key) -> value))
+        reduce (param, acc = {}) ->
+            acc ++ { (param.Name): param.Value }
+---
+results map {
+    ContactId: $.ContactId,
+    appTitle: $.Title_Mobile,
+    typeNotification: $.Type default "",
+    appMsg1: $.Message1_Mobile,
+    appMsg2: $.Message2_Mobile,
+    appMsg3: $.Message3_Mobile,
+    appFormattedMsg: "",
+    appLibelleCTA: $.TitleCTA_Mobile,
+    appUrlCTA: $.UrlCTA_Mobile,
+    appDateLimite: $.LimitDate_Mobile,
+    appDatePublicationParcours: $.PublicationDate_Mobile,
+    webTitle: $.Title_Web,
+    webMsg1: $.Message1_Web,
+    webMsg2: $.Message2_Web,
+    webMsg3: $.Message3_Web,
+    webFormattedMsg: "",
+    webLibelleCTA: $.TitleCTA_Web,
+    webUrlCTA: $.UrlCTA_Web,
+    webDateLimite: $.LimitDate_Web,
+    webDatePublicationParcours: $.PublishedDate_Web,
+    order: $.order  
+}]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+			</route>
+		</scatter-gather>
+		<ee:transform doc:name="Merge All Notification" doc:id="9e047a9c-a560-4aa8-b25e-6ecb30d4ad28" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import isNumeric from dw::core::Strings
+output application/json
+var allNotifs = (vars.global_Notif default [] ++ vars.One_Time default []) distinctBy $
+var Priority = (allNotifs filter ((item, index) -> isNumeric(item.order) and (item.order) >= 1)) orderBy ((item, index) -> item.order)
+
+var global = (Priority ++ allNotifs) distinctBy $
+---
+global]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Display Payload" doc:id="417f7d40-52b4-48ae-a6fb-c4f74f6e475b" message="#[payload]"/>
+	</sub-flow>
+	
+</mule>

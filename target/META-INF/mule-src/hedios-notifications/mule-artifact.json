@@ -1,0 +1,10 @@
+{
+    "minMuleVersion": "4.9.8",
+    "javaSpecificationVersions": ["17"],
+    "secureProperties": [
+        "secure.key",
+        "anypoint.platform.client_id",
+        "anypoint.platform.client_secret",
+        "proxy.id"
+    ]
+}

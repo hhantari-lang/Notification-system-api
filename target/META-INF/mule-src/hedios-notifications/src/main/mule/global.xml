@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule
+	xmlns:os="http://www.mulesoft.org/schema/mule/os"
+	xmlns:oauth="http://www.mulesoft.org/schema/mule/oauth"
+	xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
+http://www.mulesoft.org/schema/mule/oauth http://www.mulesoft.org/schema/mule/oauth/current/mule-oauth.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+	<http:listener-config
+		name="mkgnotificationsapi-httpListenerConfig">
+		<http:listener-connection
+			host="0.0.0.0"
+			port="${http.private.port}" />
+	</http:listener-config>
+	<apikit:config
+		name="mkgnotificationsapi-config"
+		api="api\mkgnotificationsapi.raml"
+		outboundHeadersMapName="outboundHeaders"
+		httpStatusVarName="httpStatus" />
+	<http:request-config
+		name="mkg_cloud_auth_configuration"
+		doc:name="HTTP Request configuration"
+		doc:id="248eb406-8059-4364-80c3-db26d44d04e9"
+		basePath="/v2">
+		<http:request-connection
+			host="${secure::mkgCloud.domain}.auth.marketingcloudapis.com"
+			protocol="HTTPS" />
+	</http:request-config>
+	<secure-properties:config
+		name="Secure_Properties_Config"
+		doc:name="Secure Properties Config"
+		doc:id="7086c534-e0b4-4a7a-8f56-43a70776373a"
+		file="${env}-secure-properties.yaml"
+		key="${secure.key}" />
+
+
+	<http:request-config
+		name="sfMkgCloudHTTPRequestConfiguration"
+		doc:name="HTTP Request configuration"
+		doc:id="a0a7b267-c7b0-4846-ae02-f364f5ec462a" basePath="/data/v1/customobjectdata/key/">
+		<http:request-connection
+			protocol="HTTPS"
+			host="${secure::mkgCloud.domain}.rest.marketingcloudapis.com">
+			<reconnection>
+				<reconnect count="3" />
+			</reconnection>
+
+			<http:authentication>
+				<oauth:client-credentials-grant-type
+					clientId="${secure::mkgCloud.clientId}"
+					clientSecret="${secure::mkgCloud.clientSecret}"
+					tokenUrl="https://${secure::mkgCloud.domain}.auth.marketingcloudapis.com/v2/token" encodeClientCredentialsInBody="true" tokenManager="AccesssTokenManagerConfig">
+					<oauth:custom-parameter-extractors >
+						<oauth:parameter-extractor paramName="token_type" value="#[payload.token_type]" />
+						<oauth:parameter-extractor paramName="scope" value="#[payload.scope]" />
+						<oauth:parameter-extractor paramName="soap_instance_url" value="#[payload.soap_instance_url]" />
+						<oauth:parameter-extractor paramName="rest_instance_url" value="#[payload.rest_instance_url]" />
+					</oauth:custom-parameter-extractors>
+				</oauth:client-credentials-grant-type>
+			</http:authentication>
+			
+		</http:request-connection>
+	</http:request-config>
+	<os:object-store name="accessTokenObjectStore" doc:name="Object store" doc:id="0ac2e03f-c547-40db-ae1a-f54a939dd9f4" expirationInterval="1000" entryTtl="1079" expirationIntervalUnit="SECONDS"/>
+	<oauth:token-manager-config name="AccesssTokenManagerConfig" doc:name="Token manager config" doc:id="bafb2ffb-a0c2-4d16-959e-3d867d42d6bf" objectStore="accessTokenObjectStore" />
+</mule>

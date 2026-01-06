@@ -1,0 +1,92 @@
+#%RAML 1.0 DataType
+description: Définition de la structure d'une notification In-App de Salesforce Marketing Cloud
+type: object
+properties:
+  contactId:
+    description: L'id salesforce du contact
+    type: string
+    example: 0032p00002ZQkPtAAL
+  typeNotification:
+    description: Type de notification
+    type: string
+    example: miseAJourKYC
+  appTitle:
+    description: App mobile - Titre de la notification
+    type: string
+    example: Informations personnelles obsolètes
+  appMsg1:
+    description: App mobile - Message 1
+    type: string
+    example: H Performance 44
+    required: false
+  appMsg2:
+    description: App mobile - Message 2
+    type: string
+    example: "2023-07-03"
+    required: false
+  appMsg3:
+    description: App mobile - Message 3
+    type: number
+    example: 15000
+    required: false
+  appFormattedMsg:
+    description: App mobile - Message formatté
+    type: string
+    example: Souscription non finalisées sur H Performance 44 de 15.000 euros
+    required: false
+  appLibelleCTA:
+    description: App mobile - Libelle call to action
+    type: string
+    example: Mettre à jour
+  appUrlCTA:
+    description: App mobile - Url call to action
+    type: string
+    example: www.hedios.com/souscrire/kyc/12345678
+  appDateLimite:
+    description: App mobile - Date à partir de laquelle les données sont obsolètes
+    type: string
+    example: "2023-07-03"
+  appDatePublicationParcours:
+    description: App mobile - Date à partir de laquelle les données sont obsolètes
+    type: date-only
+    example: "2023-07-03"
+  webTitle:
+    description: Web - Titre de la notification
+    type: string
+    example: Informations personnelles obsolètes
+  webMsg1:
+    description: Web - Message 1
+    type: string
+    example: H Performance 44
+    required: false
+  webMsg2:
+    description: Web - Message 2
+    type: date-only
+    example: "2023-07-03"
+    required: false
+  webMsg3:
+    description: Web - Message 3
+    type: number
+    example: 15000
+    required: false
+  webFormattedMsg:
+    description: Web - Message formatté
+    type: string
+    example: Souscription non finalisées sur H Performance 44 de 15.000 euros
+    required: false
+  webLibelleCTA:
+    description: Web - Libelle call to action
+    type: string
+    example: Mettre à jour
+  webUrlCTA:
+    description: Web - Url call to action
+    type: string
+    example: www.hedios.com/souscrire/kyc/12345678
+  webDateLimite:
+    description: Web - Date à partir de laquelle les données sont obsolètes
+    type: date-only
+    example: "2023-07-03"
+  webDatePublicationParcours:
+    description: Web - Date à partir de laquelle les données sont obsolètes
+    type: date-only
+    example: "2023-07-03"

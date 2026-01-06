@@ -1,0 +1,35 @@
+#%RAML 1.0
+title: API Hedios - Salesforce Marketing Cloud In-App notifications
+version: 1.0
+description: Cette API permet de récupérer les notifications In-App générées depuis Salesforce Marketing Cloud
+baseUri: https://api.hedios.com
+protocols:
+  - HTTPS
+mediaType:
+  - application/json
+
+types:
+  inAppNotification: !include /exchange_modules/43227f2c-5ee3-48ef-8132-30d1ce31cd02/inappnotificationdatatype/1.0.1/inappnotificationdatatype.raml
+
+traits:
+  clientIdEnforcement: !include /exchange_modules/43227f2c-5ee3-48ef-8132-30d1ce31cd02/clientidenforcement/1.0.0/clientidenforcement.raml
+
+/notifications:
+  get:
+    is: [clientIdEnforcement]
+    responses:
+      200:
+        description: Liste des notifications In-App
+        body: inAppNotification[]
+  /{id}:
+    uriParameters:
+      id:
+        description: L'identifiant unique du contact salesforce
+        type: string
+        example: 0032p00002ZQkPtAAL
+    get:
+      is: [clientIdEnforcement]
+      responses:
+        200:
+          description: Liste des notifications In-App
+          body: inAppNotification[]

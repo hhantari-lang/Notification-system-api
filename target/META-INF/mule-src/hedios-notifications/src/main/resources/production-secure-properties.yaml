@@ -1,0 +1,41 @@
+mkgCloud:
+  domain: "![9iX8L0wjhW+8rAPoPN6CuKLMdWfbaKV5XdC3dnQYRbw=]"
+  grantType: "![UQDw+9Ni39UB6y2RVwvUnE5Gvba4O6RnvG3uSryz9Lk=]"
+  clientId: "![Bjao2QhTc/SaPa1CqAROkQ4QGGGGuXNVDeHU4hKVJ5g=]"
+  clientSecret: "![5SQqcJVCHS0/YUCQ9kDw7Zdsx5v6QT7UMMfJM46fsDg=]"
+  
+  dekycKey: "![1llsWx26VUdf/0QTjEEohlmacFT8miDfvblqrZ9IPrzfkqyRgxIBkfwrZGk7cXQs]"
+  deTunnelsNonFinalisesKey: "![MLgvBe/PtV7FwY0eV3Q5LTDKqnNT6O6dEC34ll9VvxH/4QQoTXQR9PbswNiUshP6]"
+  #dePropositionArbitrageKey: "![DYxGs/lCkG/SdbrtBTIBHE6JY+tovYh9sUop20sKKN7j1AGSsXTYGEqa/XEShPdD]"
+  deArbitrageGHEnCoursDeVieKey: "![iUDPyD5CEitY8EdtQMJEk7nWGzp+pHNMvZaG5khp04mZri4z/P7siZBClN54BA/C]"
+  deGhEnCoursDeRembKey: "![rqddj7BbTQ3YD2dsg/ptq5lSTO2FLImhQTzH++ZOT8cnSyWxUJbP9icGwpvNCY7g]"
+  deGhRemboursesKey: "![fPN0+wtVUYcJtSsMVCrM3OyyjHIHTNaizh6kl4LlVa2qSGoveWWdRw43iy3Jz43o]"
+  deOffresExceptionnellesKey: "![wkkCpbUp4BSTfiONjNUpDN1d3fPqkIfmfR8mQt++N75/a/e1vVng7wfnuArbNkqw]"
+  
+  deTransfPERRepriseTunnel: "![ezh3kDfMzuznW/ARqIHvCfu8MdVIW63BRQ3Wv/3EoMkMpFFt7YS0MwjJEZnNA6vc]"
+  deTransfPERSuiviEtapes: "![AsQfoCrFJvNZzEVMSzsD6YIPnQyUgQs+tNtMLnhm3yQqzyEmpAvH54U0iutL7Xuv]"
+  deTransfPERDossierIncomplet: "![FMElHLzomD8SrUZpymd5uq8dkq0Wf87HpWSM3lf03A8+BgnrGIb/EbijIzLm5pOt]"
+    
+  deClientsPERP: "![W5Y9YttHHv72BKbW6UAFuH9F45GRwSW7KgQ05yMbQWWsHn347/qxD7hxE3lO5LiG]"
+  deClientsSansPER: "![X5y7gBEhj58I7DpaCANNbyMPR/VgozNsBvDiGpAx1hnOIjv1XpOP43QdOk/8HR5s]"
+  deClientsAvecPER: "![wF2M+RDZiunDoEjBgHnL9qkIV8GogsFldeguOTI2CqPEhhrQP0rYvYtvDC0TbiE3]"
+  deClientsPERPSansPER: "![E3Ri3M3JVQPO4TvvJwwYl/oVGWNY9wwNhBck2d7Ap5H4PegqgURtckfZVzvVBF92]"
+  
+  deOneShotAnalyseMarche: "![pAjXt1zSzHVIYTykOwTUZA5uTs0QRssSAzOmHIVFe7QNfR5LyZdzlKN+23Pr2qjh]"
+  
+  dePropositionArbitrageSRSOUC: "![3hPKZXaueH/PGoh6Y+AayMq6qkWeCKAOdTf4zUCvh7Kh4iCpdE6OOo8KLcErtXMD]"
+  
+  deAlerteMkgFMGH: "![w4gK/PdLEYzycMHeH/OdVsWtRwsKjPvp7ej3H8j/xABcXjMD5XDicyhM+hVOdPcO]"
+  
+  deFMGHCapitauxConfies: "![YJa1lGEgmfCgtSEfKsRyze8PpzhWqUs30IHsY3ClgmwhCwr2MsemGID+ZhlkFj0R]"
+  
+  deAlertePushMArketing: "![u7RwMD9aRlYHLTkMXDMcHE+9aywk6eM3CyauprCuxNi4Ri/qhfJPMjOSx/pgXofW]"
+  
+token:
+  client_id: "![Bjao2QhTc/SaPa1CqAROkQ4QGGGGuXNVDeHU4hKVJ5g=]"
+  client_secret: "![5SQqcJVCHS0/YUCQ9kDw7Zdsx5v6QT7UMMfJM46fsDg=]"
+  url: "![jGal8OzFUOrlApQUsb7JjauL84DeENWEpyRoIofFn+LCoA6dP2APuYNkAoTa/gvDdnT/prWKYLD4LFzCLpkAg7/Z9VAwc9DEpeVvYXh2hAk=]"
+  
+soap:
+  subdomain: "![9iX8L0wjhW+8rAPoPN6CuN0Rhl/HYT5XiwfVtfswPbrOHh4rZu0p2r6hpo0todHHwDkgMMUdOvOahsJfKENqTA==]"  
+  

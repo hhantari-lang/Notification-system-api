@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:java="http://www.mulesoft.org/schema/mule/java" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/java http://www.mulesoft.org/schema/mule/java/current/mule-java.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+	<error-handler name="global-error-handler" doc:id="6e69f91f-bb1f-4337-91c4-9e919dd54b79">
+		<on-error-propagate enableNotifications="true" logException="false" doc:name="On Error Propagate" doc:id="62f273a7-187a-4c39-9c45-95c5cf399b5c" type="ANY">
+			<flow-ref doc:name="global-handler-process-error" doc:id="df5c3d2f-63a8-4a26-81f8-36c8065f5814" name="global-handler-get-error" />
+			<logger level="INFO" doc:name="Logger" doc:id="68b990da-afb4-46be-af7e-daa2f70a2834" message="#[vars.errorDetails]"/>
+			<ee:transform doc:name="Set payload" doc:id="3597a594-0dd1-43ca-b338-3c18b08e9732" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+vars.errorDetails]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+		
+
+	
+</error-handler>
+	<sub-flow name="global-handler-get-error" doc:id="ead84b6c-ee96-4a22-8bc3-231182a975a6" >
+		<ee:transform doc:name="Get httpStatus" doc:id="a8e518e2-8746-498d-96e2-817ccc0c1638">
+			<ee:message>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
+import try,orElse from dw::Runtime
+output application/java
+
+var httpStatus = try( () -> do {
+    var statusCause = error.errorMessage.attributes.StatusCode as Number
+    ---
+    if (statusCause >= 400)
+        statusCause
+    else 
+        vars.httpStatus
+}) orElse vars.httpStatus
+---
+(httpStatus as Number) default 500]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Set error payload" doc:id="5f2bc59e-1689-4575-a730-241c1feb2f5f">
+			<ee:message>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="errorPayload"><![CDATA[%dw 2.0
+import try,orElse from dw::Runtime
+output application/java
+
+fun trying(getExpression) = read(
+	(
+		try(
+			() -> 
+				write(getExpression(), "application/json")	
+			) orElse "null")
+	, 
+	"application/json"
+	)	
+
+---
+trying(
+		() -> (
+					if(vars.errorPayload?) 
+						vars.errorPayload 
+					else 
+						payload			
+				)
+			)
+]]></ee:set-variable>
+			
+</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="global-handler-get-error-cause" doc:id="3a4b0535-e3e0-44a0-a23d-f85c05385b6f" name="global-handler-get-error-cause" />
+		<ee:transform doc:name="Set errorDetails" doc:id="685c87e4-4b00-4db3-aa31-046d134c7374">
+			<ee:message>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="errorDetails" ><![CDATA[%dw 2.0
+output application/json
+
+var description = vars.errorCause.description default error.description
+var message = vars.errorCause.message default description
+---
+{
+	code: vars.errorCause.code default (vars.httpStatus as String default ""),
+	errorType:  vars.errorCause.errorType default error.errorType.asString,
+	message: message,	
+	(description: description) if(description != message),	
+    (payload: vars.errorPayload) if !isEmpty(vars.errorPayload),
+    (errorCausePayload: vars.errorCause.payload) if !isEmpty(vars.errorCause.payload)
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="global-handler-get-error-cause" doc:id="1ef12e2d-3cb8-4cb1-801f-a4f96222d3bd" >
+		<ee:transform doc:name="Set error cause from error Message" doc:id="9368d71f-0c94-4a5f-a1ac-52decbbef801">
+				<ee:message>
+				</ee:message>
+				<ee:variables>
+				<ee:set-variable variableName="errorCause"><![CDATA[%dw 2.0
+import try,orElse from dw::Runtime
+output application/java
+
+---
+try(()->do {
+	var causePayload = error.errorMessage.payload
+	---
+	if(causePayload is Object) {	
+		code: causePayload.code,
+		errorType:  causePayload.errorType,
+		message: causePayload.message,
+		description: causePayload.description,
+		payload: causePayload.payload
+	}else if (causePayload is String){
+		message: causePayload,
+		description: causePayload,
+		payload: causePayload
+	}else 
+		null
+}) orElse null]]></ee:set-variable>
+
+				</ee:variables>
+			</ee:transform>
+		<choice doc:name="If APIKIT errors" doc:id="95e1266d-134f-4e91-be9f-f4d8ea5b904b">
+			<when expression='#[error.errorType.namespace=="APIKIT"]'>
+				<flow-ref doc:name="global-handler-get-apikit-error-cause" doc:id="ac5ee387-8af2-4012-adca-6fe2312bb311" name="global-handler-get-apikit-error-cause" />
+			</when>
+		</choice>
+		<choice doc:name="Expression error" doc:id="892acb30-6289-464a-b251-5429dc5845e6">
+			<when expression='#[error.errorType.identifier == "EXPRESSION"]'>
+				<ee:transform doc:name="Set error cause as data weave error" doc:id="1a80244e-12e3-4ebe-b02f-d09dfa139d76">
+					<ee:message>
+					</ee:message>
+					<ee:variables>
+						<ee:set-variable variableName="errorCause"><![CDATA[%dw 2.0
+output application/java
+ var dwError = error.description match /\"(.*)\n\n(\d+)\|\s+(.*)[\s\S]+/
+---
+{
+    message: dwError[1],
+    description: error.description
+}]]></ee:set-variable>
+					
+
+</ee:variables>
+				</ee:transform>
+			</when>
+		</choice>
+	</sub-flow>
+	<sub-flow name="global-handler-get-apikit-error-cause" doc:id="6e020c7e-2375-432b-af04-00c381c5375d" >
+		<ee:transform doc:name="Set error details" doc:id="9c38398b-0f25-4131-8946-36819da48676">
+				<ee:message />
+				<ee:variables>
+					<ee:set-variable variableName="errorDetails"><![CDATA[%dw 2.0
+output application/java
+
+---
+{
+	NOT_IMPLEMENTED: {
+		httpStatus: 501,
+		message: "Not Implemented"
+	},
+	UNSUPPORTED_MEDIA_TYPE: {
+		httpStatus: 415,
+		message: "Unsupported media type"
+	},
+	NOT_ACCEPTABLE: {
+		httpStatus: 406,
+		message: "Not acceptable"
+	},
+	METHOD_NOT_ALLOWED: {
+		httpStatus: 405,
+		message: "Method not allowed"
+	},
+	NOT_FOUND: {
+		httpStatus: 404,
+		message: "Resource not found"
+	},
+	BAD_REQUEST: {
+		httpStatus: 400,
+		message: "Bad request"
+	}
+}]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
+		<set-variable value="#[vars.errorDetails[error.errorType.identifier].httpStatus default 500]" doc:name="Set httpStatus" doc:id="e8e343d4-01db-4711-bcb5-f09754d2e786" variableName="httpStatus" />
+		<ee:transform doc:name="Set error cause" doc:id="cf032ddc-94a7-4300-943f-cafe811df660">
+				<ee:message>
+				</ee:message>
+				<ee:variables>
+				<ee:set-variable variableName="errorCause" ><![CDATA[%dw 2.0
+output application/java
+---
+{	
+	code: vars.httpStatus as String,
+	message: vars.errorDetails[error.errorType.identifier].message,
+	description: error.description
+}
+]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
+	</sub-flow>	
+
+</mule>

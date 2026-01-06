@@ -1,0 +1,50 @@
+{
+  "configs": [
+    "global.xml",
+    "get-all-mkg-notifications.xml",
+    "global-error-handler.xml",
+    "api.xml",
+    "main.xml"
+  ],
+  "secureProperties": [
+    "secure.key",
+    "anypoint.platform.client_id",
+    "anypoint.platform.client_secret",
+    "proxy.id"
+  ],
+  "supportedJavaVersions": [],
+  "redeploymentEnabled": true,
+  "name": "43227f2c-5ee3-48ef-8132-30d1ce31cd02:hedios-notifications:1.0.6",
+  "minMuleVersion": "4.9.8",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "api/exchange_modules/43227f2c-5ee3-48ef-8132-30d1ce31cd02/clientidenforcement/1.0.0/clientidenforcement.raml",
+        "api/exchange_modules/43227f2c-5ee3-48ef-8132-30d1ce31cd02/inappnotificationdatatype/1.0.1/inappnotificationdatatype.raml",
+        "api/mkgnotificationsapi.raml",
+        "api.xml",
+        "application-types.xml",
+        "dev-secure-properties.yaml",
+        "get-all-mkg-notifications.xml",
+        "global-error-handler.xml",
+        "global.xml",
+        "local-secure-properties.yaml",
+        "log4j2.xml",
+        "main.xml",
+        "modules/utils.dwl",
+        "production-secure-properties.yaml",
+        "uat-secure-properties.yaml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  },
+  "javaSpecificationVersions": [
+    "17"
+  ]
+}

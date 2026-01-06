@@ -1,0 +1,45 @@
+mkgCloud:
+  domain: "![9iX8L0wjhW+8rAPoPN6CuKLMdWfbaKV5XdC3dnQYRbw=]"
+  grantType: "![UQDw+9Ni39UB6y2RVwvUnE5Gvba4O6RnvG3uSryz9Lk=]"
+  clientId: "![MGFLf/FHbnPj5tUo5YXTttuoqYZgOeuQo3jTZVyqoLg=]"
+  clientSecret: "![PD51/UqdYm4OF8gEDTiag/T/YVr4jYOHQR7YlZf4KD8=]"
+  
+  dekycKey: "![UB1C/dDKb44RhuzjpFp/sQwl7KrkbtvRXTYXH+3uC+Arm0ED/l+gKDt54VACY1GW]"
+  deTunnelsNonFinalisesKey: "![NxjhhFX+vBBoYq8Khx1zQ+ASSQrnRY1B4RumPF/p1lmzKWBPanA2Qtpern5VCQrC]"
+  #dePropositionArbitrageKey: ""
+  deArbitrageGHEnCoursDeVieKey: "![M6C1TeOOlblDRdhJ+xd6+mVZTmtByAUog0XE9hoL2m7STeJisimKq3fofCuQcqYg]"
+  deGhEnCoursDeRembKey: "![zdzhqWeJE2iBKbjv/PzpGyin0asrZUcG67R3vDK2pDZ1+IvctgoSPcJl1fckOM/D]"
+  deGhRemboursesKey: "![YxseV0Kp5y+cpn0ubqtEfceqJ7QVcm8UtXwwBgP7q+GWLxJ6Wn22BjjMrA+7TH2E]"
+  deOffresExceptionnellesKey: "![jyZDaP0F52riTG1eltev+8s73Xr7k3yuaJyykIDauCPd/5gVOH5dKuAF2yDBf1Z4]"
+  
+  deTransfPERRepriseTunnel: "![mcXOVq79ryVoIfTX9ezPZf0jyUGJIVpNeUpFmk1QrTuVnIOpWWwKJdEtMudLLsSQ]"
+  deTransfPERSuiviEtapes: "![k5wd0pm3oLeUUhFWvA0WRz91Rr55wVW3J17QWzLuNS213PxlIgkB0RYTsznmx60a]"
+  deTransfPERDossierIncomplet: "![XakZmAh03748acFsXzhkpXZh4onWJIq5SQsFFrLHRaCz4RH+NW5S+G3q17myT8Dv]"
+  
+  deClientsPERP: "![f8ImGZ/WOseONuMSHCrw9Ibn8FQK1hv6dG7eFCxyFZlhezIgjIMtQ++plXqO5Bth]"
+  deClientsSansPER: "![W4uqKI9gt0WPM60Y4qEMLo+K3nlSVxcXZuUlsk2AZ1FBgiww3RpRAV0loMkV3Kz/]"
+  deClientsAvecPER: "![EQkVtDg17S5liTMyFbGLuscptRRRxbdKhnjQy9ffcGJYz4h3QgHrypuCye+cmjLD]"
+  deClientsPERPSansPER: "![sS9a86AOEd2E2XTU7NXh43fu29vroPeLAOYh5Fpx5pTYFKzrsNG59nwFdOTXI/tW]"
+  
+  deOneShotAnalyseMarche: "![LmmShyCoEEHdUHcNDxftz3/GQuFuDQhw0uC8GUbdsoALgXdUMCHS5cS0uKw24hvm]"
+  
+  dePropositionArbitrageSRSOUC: "![4cKEmq22YJl+oDaJrDwca5aIy06m4pC/EQGpxE69Z8pXvxnU6xitHoiKq4htISLh]"
+  
+  deAlerteMkgFMGH : "![CrblOimArlxnhNsNl6HjYsv8qQnvzsBUpKutPCYNIRFixSNUL/w/WvgCVvuHHoe6]"
+  
+  deFMGHCapitauxConfies: "![mkZEJf+QfhXgwoQ7L5mAzJlkw1pOj4wTBOlBzTBIllZHp1B8Ghge8WLGWJ5y0dX7]"
+  
+  deAlertePushMArketing: "![Xe46Fn9IWzwKq3cIwlPDiqDXsHvNsQracueLYqaYRkq/fixwhB48zTRd7THicFv+]"
+  
+  deGlobal: "![LbsYT1X6dFcsW+6bwbHjLlFdBGvK+kOMpOoRto6rqH++KfIC+7kNNN+5EUrVqISr]"
+  
+token:
+  client_id: "![MGFLf/FHbnPj5tUo5YXTttuoqYZgOeuQo3jTZVyqoLg=]"
+  client_secret: "![PD51/UqdYm4OF8gEDTiag/T/YVr4jYOHQR7YlZf4KD8=]"
+  url: "![jGal8OzFUOrlApQUsb7JjauL84DeENWEpyRoIofFn+LCoA6dP2APuYNkAoTa/gvDdnT/prWKYLD4LFzCLpkAg7/Z9VAwc9DEpeVvYXh2hAk=]"
+  
+soap:
+  subdomain: "![9iX8L0wjhW+8rAPoPN6CuN0Rhl/HYT5XiwfVtfswPbrOHh4rZu0p2r6hpo0todHHwDkgMMUdOvOahsJfKENqTA==]"
+
+  
+  

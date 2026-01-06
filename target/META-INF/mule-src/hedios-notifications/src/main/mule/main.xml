@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:oauth="http://www.mulesoft.org/schema/mule/oauth" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/oauth http://www.mulesoft.org/schema/mule/oauth/current/mule-oauth.xsd">
+	<flow name="get-notifications-by-contact-id" doc:id="c50a7aa4-f4cd-47da-a374-6d31b06a7da5" >
+		<logger level="INFO" doc:name="Start Flow" doc:id="e6385c3c-e023-4174-9191-5610bd5b0e40" message="-------------- START FLOW get-notifications IN APP NOTIFICATION SAPI --------------"/>
+		<set-variable value="#[attributes.uriParams.id as String]" doc:name="Set filterVal Variable" doc:id="e699c4f8-d1e9-4243-a125-4d2d1185e632" variableName="filterVal"/>
+		<flow-ref doc:name="get-all-mkg-notifications" doc:id="ee4d739a-7151-4cd4-8424-557bdc0ce3fa" name="get-all-mkg-notifications" />
+		<logger level="INFO" doc:name="Log Outbound Response" doc:id="5396e9b7-a6ab-4ebd-bb61-f924723c68f8" message="#[payload]" />
+		<logger level="INFO" doc:name="End Flow" doc:id="2dae7cf4-dae0-463f-a81d-2f1876ef30e1" message="-------------- END FLOW get-notifications IN APP NOTIFICATION SAPI --------------"/>
+	</flow>
+</mule>

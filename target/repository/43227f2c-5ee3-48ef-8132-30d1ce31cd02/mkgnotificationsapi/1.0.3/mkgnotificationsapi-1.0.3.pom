@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>43227f2c-5ee3-48ef-8132-30d1ce31cd02</groupId>
+  <artifactId>mkgnotificationsapi</artifactId>
+  <version>1.0.3</version>
+  <packaging>zip</packaging>
+  <description>POM was created from AnypointStudio</description>
+</project>

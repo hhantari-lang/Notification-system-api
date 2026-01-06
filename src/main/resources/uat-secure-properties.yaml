@@ -1,0 +1,40 @@
+mkgCloud:
+  domain: "![9iX8L0wjhW+8rAPoPN6CuKLMdWfbaKV5XdC3dnQYRbw=]"
+  grantType: "![UQDw+9Ni39UB6y2RVwvUnE5Gvba4O6RnvG3uSryz9Lk=]"
+  clientId: "![K8C94ANP07OQUoDtmQjzd1ye1UFy/zpvFe6YHx2EbAw=]"
+  clientSecret: "![LrEj28xYGpAaSg6KAndIpROLKL9z/E0+Yrl3UypE69U=]"
+  
+  
+  deTunnelsNonFinalisesKey: "![FM6KSm2BJJBQBq6u6OqqAtGLxyNolvqSwhW15ElhWad4gmHR8CCTcTgKwgJU/AMq]"
+  dekycKey: "![1aBiUUmDEcPa9Re9YVr0r3XRYHLDU9OBfxy4qmyAFbR9GuKbimD6Et+ZVyWDWKy2]"
+  deOffresExceptionnellesKey: "![BDMOY5SflKecwZKVvZnhsBKWW2HfkV68SB7Z2XCL9rnZjyk2SbV96RHykLwW+OyA]"
+  deGhRemboursesKey: "![dg60UDofsp5kvIpiVxanrUTQd7D2sXWk6sdIsr2imM5aOLbH1jhVxl2D36Tdk3Lo]"
+  deGhEnCoursDeRembKey: "![0LyszEFqRGBRHmHfAyNh5NkYU3c/W3XMoJAQKBRET92WMfacT8tEyJdW3EUCouk2]"
+  deArbitrageGHEnCoursDeVieKey: "![Gj/wh8zkSZvyfLxrTOuGDOp27+i+pZUSsdz4wMSoDytRAMOFniv1PkEA6DvEPrsk]"
+  
+  deTransfPERRepriseTunnel: "![6yfYjRJ78hews1exSl7IYAsQuNhFl6zL4kV/ub0wcUOc7+/JxK90K74p7iklCyKN]"
+  deTransfPERSuiviEtapes: "![ODSJ2aHxe9vx9TVVb3kn0hrMUJIFX6v7ViC7IeB7DffKcQHX1YpXEWDhdthY3g7Y]"
+  deTransfPERDossierIncomplet: "![tl8G6uN6/VUTvKpoPZNrwkvdtM3btTi0yyLC6UO2nPhrJZ9gFvcArvrciL6bD1Cn]"
+  
+  deClientsPERP: "![Y3AowXNAP+SERYj/JurJkWssDJXntTLLTnFuF1b2FmkmoBPafvT13+cc8iUbpaxa]"
+  deClientsSansPER: "![C3GpPtPAFyV56DLwSufffQbjldeKI/5Fg9pJNMMKiURS2VtSnfehGdRsRuW8EB2a]"
+  deClientsAvecPER: "![um8zcr/P8pzXmOXwUeFoXcasr4IvLD7+4fOjoFRHzPQSAquPoBk6goF4hAQ92keE]"
+  deClientsPERPSansPER: "![eIlTzhr5TpRdm+I3Z/2SGYy+XZJ+IJGN4p/jh3A0qEB+KPW2GFQoLss5q3iq7rTv]"
+
+  deOneShotAnalyseMarche: "![qoRfrUGd4q8eGLoBy+4tLCYTlDtZJLjdpemj72qqOPwzUO2Fbv+T4rpMLkGWTZbX]"
+  dePropositionArbitrageSRSOUC: "![H63GuMYhN7ntGmle3ihZE8jOcZlm7cdPVhr2TveNU4n6c+c9qrF0sCWjChW7prX6]"
+  deAlerteMkgFMGH: "![X1P8v4uqSlisNV2ekCpy6cF4/dzo60q3EM6BWPtNoK8tY3WroQe+XQkMPXqY6hZI]"
+  deFMGHCapitauxConfies: "![UCZyiUilvAfVJkRWkvH3Pg3TjJqvSg3eZv7vq60SpJC693du0B+bzaADt/NluvyU]"
+
+  deAlertePushMArketing: "![BA9y0i/Fjg3vu/ZseW/SbKhBkGd73iM1MHxhipGGy7JKeUfZkTI9Hd+RM6QtHTq5]"
+  
+  
+token:
+  client_id: "![K8C94ANP07OQUoDtmQjzd1ye1UFy/zpvFe6YHx2EbAw=]"
+  client_secret: "![d3y4bk+8NDl/HGBa6FrLVmBH2hkdorI0pUDMOfg+Tjw=]"
+  url: "![jGal8OzFUOrlApQUsb7JjauL84DeENWEpyRoIofFn+LCoA6dP2APuYNkAoTa/gvDdnT/prWKYLD4LFzCLpkAg7/Z9VAwc9DEpeVvYXh2hAk=]"
+  
+soap:
+  subdomain: "![9iX8L0wjhW+8rAPoPN6CuN0Rhl/HYT5XiwfVtfswPbrOHh4rZu0p2r6hpo0todHHwDkgMMUdOvOahsJfKENqTA==]"
+  
+  
