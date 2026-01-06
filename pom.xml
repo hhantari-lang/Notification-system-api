@@ -19,6 +19,11 @@
 		<tags/>
 		<categories>[]</categories>
 		<fields>[]</fields>
+		
+		<env>dev</env>
+        <javaVersion>17</javaVersion>
+        <serverId>Repository</serverId>
+		
 	</properties>
 
 	<build>
