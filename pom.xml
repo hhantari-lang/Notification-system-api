@@ -43,7 +43,7 @@
 			            <environment>${env}</environment>
             			<connectedAppGrantType>client_credentials</connectedAppGrantType>
 						<server>Repository</server>
-			            <applicationName>test-drafts</applicationName>
+			            <applicationName>${env}-${project.name}</applicationName>
 			            <javaVersion>${javaVersion}</javaVersion>
 			            <workerType>MICRO</workerType>
 			            <workers>1</workers>
