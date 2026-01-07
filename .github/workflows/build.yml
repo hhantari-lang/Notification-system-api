@@ -2,9 +2,9 @@ name: Build and Deploy to dev env
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ uat ]
   pull_request:
-    branches: [ develop ]
+    branches: [ uat ]
     
 jobs:
   test:
