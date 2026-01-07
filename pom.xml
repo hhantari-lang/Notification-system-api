@@ -19,7 +19,7 @@
 		<categories>[]</categories>
 		<fields>[]</fields>
 		
-		<env>dev</env>
+		<env>uat</env>
         <javaVersion>17</javaVersion>
         <serverId>Repository</serverId>
 	</properties>
@@ -50,8 +50,8 @@
 			            <region>eu-central-1</region>
 			            <properties>
 							<secure.key>${decryption.key}</secure.key>
-							<anypoint.platform.client_id>98ea43b83c054f50a4df3376d8b824ff</anypoint.platform.client_id>
-							<anypoint.platform.client_secret>398CB0Ce65a54979a6C6F1F4d6CFe472</anypoint.platform.client_secret>
+							<anypoint.platform.client_id>0a44a373c322479daa505c948e684e31</anypoint.platform.client_id>
+							<anypoint.platform.client_secret>5bb1690F38Ab449B91edD2777dC53E6a</anypoint.platform.client_secret>
 							<env>${env}</env>
 							<anypoint.platform.base_uri>https://eu1.anypoint.mulesoft.com/</anypoint.platform.base_uri>
 							<anypoint.platform.analytics_base_uri>https://analytics-ingest.eu1.anypoint.mulesoft.com/</anypoint.platform.analytics_base_uri>
