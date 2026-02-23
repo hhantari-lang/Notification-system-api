@@ -47,6 +47,7 @@ var AccessToken = vars.token
         ObjectType: "DataExtensionObject[Alertes_Notifications]",
         Properties: [
           "ContactId",
+          "Message_Popup",
           "Message1_Mobile",
           "Message2_Mobile",
           "Message3_Mobile",
@@ -105,6 +106,7 @@ var results = payload.Envelope.Body.RetrieveResponseMsg.*Results.Properties map 
 ---
 results map {
     ContactId: $.ContactId,
+    Message_Popup: $.Message_Popup,
     appTitle: $.Title_Mobile,
     typeNotification: $.Type default "",
     appMsg1: $.Message1_Mobile,
@@ -157,6 +159,7 @@ var AccessToken = vars.token
         ObjectType: "DataExtensionObject[Alertes_Notifications_One_Time_Day]",
         Properties: [
           "ContactId",
+          "Message_Popup",
           "Message1_Mobile",
           "Message2_Mobile",
           "Message3_Mobile",
@@ -215,6 +218,7 @@ var results = payload.Envelope.Body.RetrieveResponseMsg.*Results.Properties map 
 ---
 results map {
     ContactId: $.ContactId,
+    Message_Popup: $.Message_Popup,
     appTitle: $.Title_Mobile,
     typeNotification: $.Type default "",
     appMsg1: $.Message1_Mobile,
