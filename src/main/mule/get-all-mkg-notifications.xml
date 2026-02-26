@@ -106,7 +106,7 @@ var results = payload.Envelope.Body.RetrieveResponseMsg.*Results.Properties map 
 ---
 results map {
     ContactId: $.ContactId,
-    Message_Popup: $.Message_Popup,
+    messagePopup: $.Message_Popup,
     appTitle: $.Title_Mobile,
     typeNotification: $.Type default "",
     appMsg1: $.Message1_Mobile,
@@ -218,7 +218,7 @@ var results = payload.Envelope.Body.RetrieveResponseMsg.*Results.Properties map 
 ---
 results map {
     ContactId: $.ContactId,
-    Message_Popup: $.Message_Popup,
+    messagePopup: $.Message_Popup,
     appTitle: $.Title_Mobile,
     typeNotification: $.Type default "",
     appMsg1: $.Message1_Mobile,
