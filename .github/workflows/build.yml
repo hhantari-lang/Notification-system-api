@@ -26,8 +26,8 @@ jobs:
         java-version: 17
     - name: Test with Maven
       env:
-        nexus_username: ${{ secrets.nexus_username }}
-        nexus_password: ${{ secrets.nexus_password }}
+        ANYPOINT_ID: ${{ secrets.CONNECTED_APP_CLIENT_ID }}
+        ANYPOINT_SECRET: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
       run: mvn test --settings .maven/settings.xml
     - name: Upload MUnit reports
       uses: actions/upload-artifact@v4
