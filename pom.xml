@@ -62,7 +62,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<dependencies>
 		<dependency>
 			<groupId>43227f2c-5ee3-48ef-8132-30d1ce31cd02</groupId>
