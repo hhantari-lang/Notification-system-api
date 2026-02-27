@@ -4,13 +4,13 @@
   <pluginGroups>
     <pluginGroup>org.mule.tools</pluginGroup>
   </pluginGroups>
-
+  
   <servers>
     <!-- connected app's required scopes: https://help.salesforce.com/s/articleView?id=001119708&type=1 -->
     <server>
       <id>Repository</id> 
       <username>~~~Client~~~</username>
-      <password>${env.ANYPOINT_ID}~?~${env.ANYPOINT_SECRET}</password> 
+      <password>${env.ANYPOINT_ID}~?~${env.ANYPOINT_SECRET}</password>
     </server>
   </servers>
 </settings>
